@@ -5,6 +5,14 @@ require 'csv'
 Faker::Config.locale = 'en-US'
 
 
+Intervention.create!({
+    "author"=>1,
+    "customer_id"=>1,
+    "building_id"=>1,
+    "report"=>"This is a test report!",
+    "status"=>"Pending"
+    })
+
 User.create!({
     "email"=>"nicolas.genest@codeboxx.biz", 
     "password"=> "newdog1", 
