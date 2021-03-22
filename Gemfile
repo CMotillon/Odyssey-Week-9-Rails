@@ -118,7 +118,7 @@ gem 'activestorage-dropbox'
 # Slack
 gem "slack-notifier"
 
-# SendGrid 
+# SendGrid & Zendesk
 gem 'sendgrid-ruby'
 gem 'zendesk_api'
 

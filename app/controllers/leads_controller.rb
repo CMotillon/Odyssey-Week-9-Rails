@@ -83,12 +83,16 @@ class LeadsController < ApplicationController
         end
     end
 
+    
+    
+
     def leads_
         render '/'
     end
-  
+
     def show
         redirect_to '/admin/lead'
     end
+
 
 end
