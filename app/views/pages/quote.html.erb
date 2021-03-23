@@ -47,6 +47,9 @@
 								<li><!-- ADMIN -->
 									<%= link_to "ADMIN", rails_admin_url %>
 								</li>
+                                <li><!-- INTERVENTION -->
+                                    <%= link_to "INTERVENTION",pages_intervention_url %>
+                                </li>
 							<% elsif user_signed_in? %>
 								<li><!-- LOGOUT -->
 									<%= link_to "LOGOUT", destroy_user_session_path, method: :delete %>
@@ -111,7 +114,7 @@
                 </div>
 
                 <%# <div class="container" > %>
-                    <form id= "quote" class="form-horizontal" action="/quotes" method="post">
+                <form id= "quote" class="form-horizontal" action="/quotes" method="post">
                     <div class="container" >
                          <div class="row" >
                             <div class="col-lg-6 col-sm-12 row">
@@ -321,7 +324,7 @@
                             </div>
                         </div>
                         </div>
-                    </form>
+                </form>
                 <%# </div> %>
             </section>
             <!-- /QUOTE -->

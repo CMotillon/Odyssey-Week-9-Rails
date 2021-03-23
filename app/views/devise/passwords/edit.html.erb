@@ -52,12 +52,16 @@
                   <%= link_to "CONTACT" ,root_path(:anchor=> "contact") %>
                 </li>
                 <% if user_signed_in? && current_user.supervisor_role? %>
-								<li><!-- LOGOUT -->
-									<%= link_to "LOGOUT", destroy_user_session_path, method: :delete %>
-								</li>
-								<li><!-- ADMIN -->
-									<%= link_to "ADMIN", rails_admin_url %>
-								</li>
+                  <li><!-- LOGOUT -->
+                    <%= link_to "LOGOUT", destroy_user_session_path, method: :delete %>
+                  </li>
+                  <li><!-- ADMIN -->
+                    <%= link_to "ADMIN", rails_admin_url %>
+                  </li>
+                  <li><!-- INTERVENTION -->
+                    <%= link_to "INTERVENTION",pages_intervention_url %>
+                  </li>
+                  
                 <% elsif user_signed_in? %>
                   <li><!-- LOGOUT -->
                     <%= link_to "LOGOUT", destroy_user_session_path, method: :delete %>
