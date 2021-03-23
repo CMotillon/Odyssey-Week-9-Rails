@@ -27,5 +27,7 @@ Rails.application.routes.draw do
   post '/interventions/battery_select' => 'interventions#battery_select'
   post '/interventions/column_select' => 'interventions#column_select'
   post '/interventions/elevator_select' => 'interventions#elevator_select'
+
+  post 'interventions/intervention' => 'interventions#intervention_save'
 end
 

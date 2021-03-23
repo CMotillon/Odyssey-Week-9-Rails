@@ -30,11 +30,11 @@
 
 	<div>
         <h4>Description of the intervention</h4>
-		<%= f.text_area :report,{:size => "34x5"} %>
+		<%= f.text_area :report ,{:size => "40x5"} %>
 	</div>
 
     <br>
 	<div>
-		<%= f.submit "Submit", class: "btn btn-primary"%>
+		<%= f.submit "Submit", class: "btn btn-primary", id: "submit_button"%>
 	</div>
 <% end %>

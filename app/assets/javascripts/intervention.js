@@ -71,7 +71,7 @@ $(document).ready(function(){
   
   $("#column_list").change(function(){
     $('#elevator_show').hide();
-
+    
     var column_id = $(this).val();
     $.ajax({
       url: "elevator_select",

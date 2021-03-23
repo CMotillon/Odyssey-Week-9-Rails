@@ -1,6 +1,20 @@
 class InterventionsController < ApplicationController
+  before_action :authenticate_user!
+
   def intervention
-      @intervention = Intervention.new
+    @intervention = Intervention.new
+  end
+
+  def intervention_save
+
+    @intervention = Intervention.new(intervention_params)
+    @intervention.result = "incomplete"
+    @intervention.status = "pending"
+    @intervention.author = current_user.id
+
+    @intervention.save!
+
+    redirect_to '/interventions/intervention'
   end
 
   def building_select
@@ -50,4 +64,8 @@ class InterventionsController < ApplicationController
        }
     end
   end
+
+  def intervention_params
+    params.fetch(:intervention, {}).permit(:customer_id, :building_id, :battery_id, :column_id, :elevator_id, :employee_id, :report)
+  end 
 end
