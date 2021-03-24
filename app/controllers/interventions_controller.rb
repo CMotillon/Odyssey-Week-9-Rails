@@ -14,7 +14,41 @@ class InterventionsController < ApplicationController
 
     @intervention.save!
 
-    redirect_to '/interventions/intervention'
+
+    if @intervention.save!
+      zendesk_send()
+      redirect_to '/interventions/intervention'
+    end
+  end
+
+  def zendesk_send
+    client = ZendeskAPI::Client.new do |config|
+      config.url = ENV['ZENDESK_URL']
+      config.username = ENV['ZENDESK_USERNAME']
+      config.token = ENV['ZENDESK_TOKEN']
+    end
+
+    @intervention = Intervention.new(intervention_params)
+    @intervention.author = current_user.id
+
+    author = Employee.where(user_id: @intervention.author)
+    user_email = User.where(id: @intervention.author)
+
+    building = Building.where(id: @intervention.building_id)
+    employee = Employee.where(id: @intervention.employee_id)
+
+    ZendeskAPI::Ticket.create!(client, 
+        :subject => "#{author.first_name} #{author.last_name} has requested a new intervention", 
+        :comment => { 
+          :value => "An intervention has been given to #{employee.first_name} #{employee.last_name} for Building #{building.id}. The building address is: #{building.address_building}"
+          }, 
+        :requester => { 
+            "name": author.last_name,
+            "email": user_email.email       
+          },
+        :priority => "normal",
+        :type => "task"
+      )
   end
 
   def building_select

@@ -1,40 +1,168 @@
-<h1>New Intervention</h1>
-<%= form_for @intervention, url: interventions_intervention_path(@intervention) do |f| %>
-    <h4>Select Customer</h4>
-    <%= f.select(:customer_id, Customer.all.collect {|c| [c.company_name, c.id] }, { include_blank: true }, { id: :customer_list }) %>
+<!-- WRAPPER -->
+<div id="wrapper">
+	<div id="header" class="navbar-toggleable-md sticky header-md clearfix">
+        <!-- TOP NAV -->
+        <header id="topNav">
+            <div class="container">
+                <!-- Mobile Menu Button -->
+                <button class="btn btn-mobile" data-toggle="collapse" data-target=".nav-main-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <!-- Logo -->
+                <%= link_to image_tag('logo-transparent.png'), root_path, :alt => "Rocket Elevators logo", :class => "logo float-left scrollTo" %>
+                <div class="navbar-collapse collapse float-right nav-main-collapse submenu-dark">
+                    <nav class="nav-main">
+                        <ul id="topMain" class="nav nav-pills nav-main nav-onepage">
+                            <li class="active"><!-- HOME -->
+                                <%= link_to "HOME",root_path, :id => "home-nav" %>
+                            </li>
+                            <li>
+								<a id="service-nav" href="#services">SERVICES</a>    
+								<ul class="dropdown-menu">
+									<li><%= link_to "Services",root_path(:anchor => "services"), class: "dropdown-item" %></li>
+									<div class="dropdown-divider"></div>
+									<li><%= link_to "Corporate Buildings",pages_commercial_url, class: "dropdown-item" %></li>
+									<li><%= link_to "Residential Buildings",pages_residential_url, class: "dropdown-item" %></li>
+									<li><%= link_to "Request a Quote",pages_quote_url, class: "dropdown-item" %></li>
+								</ul>    
+							</li>
+                            <li><!-- PORTFOLIO -->
+                                <%= link_to "PORTFOLIO",root_path(:anchor => "portfolio") %>
+                            </li>
+                            <li><!-- NEWS -->
+                                <%= link_to "NEWS",root_path(:anchor => "news") %>
+                            </li>
+                            <li><!-- CLIENTS -->
+                                <%= link_to "CLIENTS",root_path(:anchor => "clients") %>
+                            </li>
+                            <li><!-- CONTACT -->
+                                <%= link_to "CONTACT",root_path(:anchor => "contact") %>
+                            </li>
+                            <% if user_signed_in? && current_user.supervisor_role? %>
+								<li><!-- LOGOUT -->
+									<%= link_to "LOGOUT", destroy_user_session_path, method: :delete %>
+								</li>
+								<li><!-- ADMIN -->
+									<%= link_to "ADMIN", rails_admin_url %>
+								</li>
+							<% elsif user_signed_in? %>
+								<li><!-- LOGOUT -->
+									<%= link_to "LOGOUT", destroy_user_session_path, method: :delete %>
+								</li>
+							<% else %>
+								<li><!-- LOGIN -->
+									<%= link_to "LOGIN", new_user_session_path %>
+								</li>
+							<% end %>
+                        </ul>
 
-	<div class="hide_select" id="building_show">
-        <h4>Select Building</h4>
-		<%= f.select(:building_id,[], { include_blank: true }, { id: :building_list })%>
+                    </nav>
+                </div>
+            </div>
+        </header>
+        <!-- /Top Nav -->
 	</div>
 
-	<div class="hide_select" id="battery_show">
-        <h4>Select Battery</h4>
-		<%= f.select(:battery_id,[], { include_blank: true }, { id: :battery_list })%>
-	</div>
+	<!-- FOUNDATION -->
+	<section class="parallax parallax-1" style="background-image: url(<%= image_path "elavator-cityview-crop.jpg"%>)">
+		<div class="overlay dark-5"></div>
+			<div class="container">
+				<div class="text-center">
+					<h2 class="fs-40 fw-300">Request an Intervention</h2>
+				</div>
+			</div>
+    </section>
+    <!-- /FOUNDATION -->
 
-	<div class="hide_select" id="column_show">
-        <h4>Select Column</h4>
-		<%= f.select(:column_id, [], { include_blank: true }, { id: :column_list })%>
-	</div>
+	<section class="container">
+		<%= form_for @intervention, url: interventions_intervention_path(@intervention) do |f| %>
+			<h4>Select Customer</h4>
+			<%= f.select(:customer_id, Customer.all.collect {|c| [c.id.to_s + " - " + c.company_name, c.id] }, { include_blank: true }, { id: :customer_list }) %>
 
-	<div class="hide_select" id="elevator_show">
-        <h4>Select Elevator</h4>
-		<%= f.select(:elevator_id, [], { include_blank: true }, { id: :elevator_list })%>
-	</div>
+			<div class="hide_select" id="building_show">
+				<h4>Select Building ID</h4>
+				<%= f.select(:building_id,[], { include_blank: true }, { id: :building_list })%>
+			</div>
 
-	<div id="employee_show">
-        <h4>Select Employee</h4>
-		<%= f.select(:employee_id, Employee.all.collect {|e| [e.last_name, e.id]}, { include_blank: true })%>
-	</div>
+			<div class="hide_select" id="battery_show">
+				<h4>Select Battery ID</h4>
+				<%= f.select(:battery_id,[], { include_blank: true }, { id: :battery_list })%>
+			</div>
 
-	<div>
-        <h4>Description of the intervention</h4>
-		<%= f.text_area :report ,{:size => "40x5"} %>
-	</div>
+			<div class="hide_select" id="column_show">
+				<h4>Select Column ID</h4>
+				<%= f.select(:column_id, [], { include_blank: true }, { id: :column_list })%>
+			</div>
 
-    <br>
-	<div>
-		<%= f.submit "Submit", class: "btn btn-primary", id: "submit_button"%>
-	</div>
-<% end %>
+			<div class="hide_select" id="elevator_show">
+				<h4>Select Elevator ID</h4>
+				<%= f.select(:elevator_id, [], { include_blank: true }, { id: :elevator_list })%>
+			</div>
+
+			<div id="employee_show">
+				<h4>Select Employee</h4>
+				<%= f.select(:employee_id, Employee.all.collect {|e| [e.id.to_s + ' - ' + e.last_name, e.id]}, { include_blank: true })%>
+			</div>
+
+			<div>
+				<h4>Description of the intervention</h4>
+				<%= f.text_area :report ,{:size => "40x5"} %>
+			</div>
+
+			<br>
+			<div>
+				<%= f.submit "Submit", class: "btn btn-primary", id: "submit_button"%>
+			</div>
+		<% end %>
+	</section>
+
+	<!-- FOUNDATION -->
+	<section class="parallax parallax-1" style="background-image: url(<%= image_path "elavator-cityview-crop.jpg"%>)">
+		<div class="overlay dark-5"></div>
+			<div class="container">
+				<div class="text-center">
+					<h2 class="fs-40 fw-300">Elevating Quality Since 1976</h2>
+				</div>
+			</div>
+    </section>
+    <!-- /FOUNDATION -->
+            
+
+            
+    <!-- FOOTER -->
+	<footer id="footer">
+		<div class="container mt-0 mb-30">
+			<div class="row">
+				<!-- col #1 -->
+				<div class="col-md-7">
+					<h3 class="letter-spacing-1">WHY US?</h3>
+					<!-- Small Description -->
+					<p>
+						We have the conviction that we create the most innovative and reliable products on the market. </br>
+						Contact us today for any questions you might have.
+						</p>
+				</div>
+				<!-- /col #1 -->
+				<!-- col #2 -->
+				<div class="col-md-5">
+                    <h3>(418) 555-1234</h3>
+                    <p>
+                        <span class="block"><strong><i class="fa fa-map-marker"></i> 418-725 Boulevard Lebourgneuf, Québec, QC G2J 0C4, Canada</span>
+                        <span class="block"><strong><i class="fa fa-envelope"></i> Email:</strong> <a href="mailto:info@codebox.biz">info@codebox.biz</a></span>
+                    </p>
+				</div>
+				<!-- /col #2 -->
+			</div>
+		</div>
+		<div class="copyright">
+			<div class="container">
+				&copy; All Rights Reserved
+			</div>
+		</div>
+	</footer>
+	<!-- /FOOTER -->
+</div>
+<!-- /WRAPPER -->
+
+<!-- SCROLL TO TOP -->
+<a href="#" id="toTop"></a>

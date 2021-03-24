@@ -17,6 +17,10 @@ $(document).ready(function(){
         for(var i=0; i < buildings.length; i++){
           $("#building_list").append('<option value="' + buildings[i]["id"] + '">' + buildings[i]["id"] + '</option>');
         }
+        $('#building_show').val(0)
+        $('#battery_show').val(0)
+        $('#column_show').val(0)
+        $('#elevator_show').val(0)
         $('#building_show').show();
       }
     });
