@@ -7,48 +7,17 @@ class InterventionsController < ApplicationController
 
   def intervention_save
 
-    @intervention = Intervention.new(intervention_params)
+    @intervention = Intervention.new(intervention_info)
     @intervention.result = "incomplete"
     @intervention.status = "pending"
     @intervention.author = current_user.id
 
     @intervention.save!
 
-
-    if @intervention.save!
+    if @intervention.save
       zendesk_send()
       redirect_to '/interventions/intervention'
     end
-  end
-
-  def zendesk_send
-    client = ZendeskAPI::Client.new do |config|
-      config.url = ENV['ZENDESK_URL']
-      config.username = ENV['ZENDESK_USERNAME']
-      config.token = ENV['ZENDESK_TOKEN']
-    end
-
-    @intervention = Intervention.new(intervention_params)
-    @intervention.author = current_user.id
-
-    author = Employee.where(user_id: @intervention.author)
-    user_email = User.where(id: @intervention.author)
-
-    building = Building.where(id: @intervention.building_id)
-    employee = Employee.where(id: @intervention.employee_id)
-
-    ZendeskAPI::Ticket.create!(client, 
-        :subject => "#{author.first_name} #{author.last_name} has requested a new intervention", 
-        :comment => { 
-          :value => "An intervention has been given to #{employee.first_name} #{employee.last_name} for Building #{building.id}. The building address is: #{building.address_building}"
-          }, 
-        :requester => { 
-            "name": author.last_name,
-            "email": user_email.email       
-          },
-        :priority => "normal",
-        :type => "task"
-      )
   end
 
   def building_select
@@ -99,7 +68,27 @@ class InterventionsController < ApplicationController
     end
   end
 
-  def intervention_params
+  def intervention_info
     params.fetch(:intervention, {}).permit(:customer_id, :building_id, :battery_id, :column_id, :elevator_id, :employee_id, :report)
   end 
+
+  def zendesk_send
+    client = ZendeskAPI::Client.new do |config|
+      config.url = ENV['ZENDESK_URL']
+      config.username = ENV['ZENDESK_USERNAME']
+      config.token = ENV['ZENDESK_TOKEN']
+    end
+
+    ZendeskAPI::Ticket.create!(client,
+      :subject => "Intervention requested by: " + current_user.email ,
+      :comment => "An intervention has been requested for Customer ID:  #{intervention_info[:customer_id]} 
+      at Building ID:  #{intervention_info[:building_id]}  
+      Battery ID:  #{intervention_info[:battery_id]} 
+      Column ID:  #{intervention_info[:column_id]} 
+      Elevator ID:  #{intervention_info[:elevator_id]} 
+      Required Employee ID:  #{intervention_info[:employee_id]} 
+      Description:  #{intervention_info[:report]}  ",
+      :priority => "urgent",
+      :type => "problem")
+  end
 end
