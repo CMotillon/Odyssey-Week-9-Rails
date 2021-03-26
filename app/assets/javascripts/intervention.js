@@ -1,6 +1,7 @@
 $(document).ready(function(){
   $('.hide_select').hide();
 
+  // Requests new buildings every time the customer_id field changes
   $("#customer_list").change(function(){
     $('.hide_select').hide();
 
@@ -23,6 +24,7 @@ $(document).ready(function(){
     });
   });
 
+  // Requests new batteries every time the building_id field changes
   $("#building_list").change(function(){
     $('#battery_show').hide();
     $('#column_show').hide();
@@ -52,6 +54,7 @@ $(document).ready(function(){
     });
   });
 
+  // Requests new columns every time the battery_id field changes
   $("#battery_list").change(function(){
     $('#column_show').hide();
     $('#elevator_show').hide();
@@ -80,6 +83,7 @@ $(document).ready(function(){
     });
   });
   
+  // Requests new elevators every time the column_id field changes
   $("#column_list").change(function(){
     $('#elevator_show').hide();
     

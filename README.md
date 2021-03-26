@@ -176,6 +176,9 @@ Finally we tried to add **Weather** to *Google Maps* but this is as far as we go
 
 # Extented Data Warehouse #
 
+<details>
+<summary><i>CLICK TO EXPAND</i></summary>
+
 <u><b>This week we had to extend our data warehouse with a table named Fact Intervention:</u></b>
 
 ![](fact_int.jpg)
@@ -185,6 +188,7 @@ Finally we tried to add **Weather** to *Google Maps* but this is as far as we go
 Then we developed a rake task to generate random data into that table.
 
 ![](fact_int2.jpg)
+</details>
 
 
 

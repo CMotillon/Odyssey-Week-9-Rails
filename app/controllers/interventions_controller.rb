@@ -20,6 +20,7 @@ class InterventionsController < ApplicationController
     end
   end
 
+  # Selects all buildings using customer ID
   def building_select
     p params["customer_id"]
       @buildings = Building.where(customer_id: params["customer_id"])
@@ -32,6 +33,7 @@ class InterventionsController < ApplicationController
       end
   end
 
+  # Selects all batteries using building ID
   def battery_select
     p params["building_id"]
       @batteries = Battery.where(building_id: params["building_id"])
@@ -44,6 +46,7 @@ class InterventionsController < ApplicationController
       end
   end
 
+  # Selects all columns using battery ID
   def column_select
     p params["battery_id"]
     @columns = Column.where(battery_id: params["battery_id"])
@@ -56,6 +59,7 @@ class InterventionsController < ApplicationController
     end
   end
 
+  # Selects all elevators using column ID
   def elevator_select
     p params["column_id"]
     @elevators = Elevator.where(column_id: params["column_id"])
@@ -68,10 +72,12 @@ class InterventionsController < ApplicationController
     end
   end
 
+  # Fetches all the info from the recently submitted form
   def intervention_info
     params.fetch(:intervention, {}).permit(:customer_id, :building_id, :battery_id, :column_id, :elevator_id, :employee_id, :report)
   end 
 
+  # Creates a ticket on Zendesk with the fetched info from the recently submitted form
   def zendesk_send
     client = ZendeskAPI::Client.new do |config|
       config.url = ENV['ZENDESK_URL']
