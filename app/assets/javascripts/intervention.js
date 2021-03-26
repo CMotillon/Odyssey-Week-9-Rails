@@ -15,12 +15,8 @@ $(document).ready(function(){
         var buildings = response["buildings"];
         $("#building_list").empty().append('<option>Select</option>');
         for(var i=0; i < buildings.length; i++){
-          $("#building_list").append('<option value="' + buildings[i]["id"] + '">' + buildings[i]["id"] + '</option>');
+          $("#building_list").append('<option value="' + buildings[i]["id"] + '">' + buildings[i]["id"] + ' - ' + buildings[i]["address_building"] + '</option>');
         }
-        $('#building_show').val(0)
-        $('#battery_show').val(0)
-        $('#column_show').val(0)
-        $('#elevator_show').val(0)
         $('#building_show').show();
       }
     });

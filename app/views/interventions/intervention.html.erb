@@ -77,11 +77,11 @@
 	<section class="container">
 		<%= form_for @intervention, url: interventions_intervention_path(@intervention) do |f| %>
 			<h4>Select Customer</h4>
-			<%= f.select(:customer_id, Customer.all.collect {|c| [c.id.to_s + " - " + c.company_name, c.id] }, { include_blank: true }, { id: :customer_list }) %>
+			<%= f.select(:customer_id, Customer.all.collect {|c| [c.id.to_s + " - " + c.company_name, c.id] }, { include_blank: true }, { id: :customer_list, required: true }) %>
 
 			<div class="hide_select" id="building_show">
-				<h4>Select Building ID</h4>
-				<%= f.select(:building_id,[], { include_blank: true }, { id: :building_list })%>
+				<h4>Select Building</h4>
+				<%= f.select(:building_id,[], { include_blank: true }, { id: :building_list, required: true })%>
 			</div>
 
 			<div class="hide_select" id="battery_show">
@@ -101,7 +101,7 @@
 
 			<div id="employee_show">
 				<h4>Select Employee</h4>
-				<%= f.select(:employee_id, Employee.all.collect {|e| [e.id.to_s + ' - ' + e.last_name, e.id]}, { include_blank: true })%>
+				<%= f.select(:employee_id, Employee.all.collect {|e| [e.id.to_s + ' - ' + e.last_name, e.id]}, { include_blank: true }, { required: true })%>
 			</div>
 
 			<div>
