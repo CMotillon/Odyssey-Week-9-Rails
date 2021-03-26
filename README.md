@@ -191,6 +191,20 @@ Then we developed a rake task to generate random data into that table.
 </details>
 
 
+# Intervention Form #
+
+<u><b>This week we had to add an intervention form.</u></b>
+
+</br>
+
+To log in as an admin and test out the form:
+
+Username: nicolas.genest@codewboxx.biz
+Password: newdog1
+
+
+
+
 
 
 
