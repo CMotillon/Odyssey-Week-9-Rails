@@ -3,6 +3,7 @@ $(document).ready(function(){
 
   $("#customer_list").change(function(){
     $('.hide_select').hide();
+
     var customer_id = $(this).val();
     $.ajax({
       url: "building_select",
@@ -26,7 +27,7 @@ $(document).ready(function(){
     $('#battery_show').hide();
     $('#column_show').hide();
     $('#elevator_show').hide();
-
+    
     var building_id = $(this).val();
     $.ajax({
       url: "battery_select",
@@ -41,7 +42,12 @@ $(document).ready(function(){
         for(var i=0; i < batteries.length; i++){
           $("#battery_list").append('<option value="' + batteries[i]["id"] + '">' + batteries[i]["id"] + '</option>');
         }
-        $('#battery_show').show();
+
+        if (building_id == "Select") {
+          $('#battery_show').hide();
+        } else {
+          $('#battery_show').show();
+        }
       }
     });
   });
@@ -64,7 +70,12 @@ $(document).ready(function(){
         for(var i=0; i < columns.length; i++){
           $("#column_list").append('<option value="' + columns[i]["id"] + '">' + columns[i]["id"] + '</option>');
         }
-        $('#column_show').show();
+
+        if (battery_id == "Select") {
+          $('#column_show').hide();
+        } else {
+          $('#column_show').show();
+        }
       }
     });
   });
@@ -86,7 +97,12 @@ $(document).ready(function(){
         for(var i=0; i < elevators.length; i++){
           $("#elevator_list").append('<option value="' + elevators[i]["id"] + '">' + elevators[i]["id"] + '</option>');
         }
-        $('#elevator_show').show();
+
+        if (column_id == "Select") {
+          $('#elevator_show').hide();
+        } else {
+          $('#elevator_show').show();
+        }
       }
     });
   });
