@@ -1,0 +1,12 @@
+<% require 'elevatormedia' %>
+
+<h2>Elevator Media Page</h2>
+
+<% 
+    streamable = ElevatorMedia::Streamer.new
+    RSpec.describe ElevatorMedia, "#getContent" do
+        streamable.getContent()
+    end
+%>
+
+<%= streamable.video.html_safe %>

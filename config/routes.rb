@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   root 'pages#index'
   get 'pages/commercial'
   get 'pages/residential'
+  get 'pages/elevator_media'
 
   get 'pages/quote'# => 'application#quotes'
   #post 'create' => 'application#create'
