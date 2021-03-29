@@ -9,7 +9,9 @@ module ElevatorMedia
         def getContent
             @content = Net::HTTP.get(URI('https://api.streamable.com/oembed.json?url=https://streamable.com/hn8hq'))
             json_parse = JSON.parse(@content)['html'].to_s
-            @video = "<div class='container-fluid video'> #{json_parse.to_s} </div>"
+            @video = "<div class='container video'> #{json_parse.to_s} </div>"
+
+            return @video
         end
     end
 end
