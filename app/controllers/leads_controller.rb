@@ -22,7 +22,7 @@ class LeadsController < ApplicationController
         $attachment = leads.attachment
         $company_name = leads.company_name
 
-        # leads.save!
+        leads.save!
         
         
         if leads.save

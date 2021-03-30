@@ -8,12 +8,3 @@ RSpec.describe "Residential Check", :type => :feature do
         end
     end
 end
-
-RSpec.describe "Index Check", :type => :feature do
-    context "When you go to the home page" do
-        it "Displays the home page" do
-            visit '/'
-            expect(page).to have_text('Elevate Safety, Speed and Style')
-        end
-    end
-end
