@@ -17,7 +17,6 @@ RSpec.describe "Form Check", :type => :feature do
             p lead
             expect(lead).not_to be(nil)
             expect(lead).to be_a(Lead)
-            p lead.name
             expect(lead.name).to be_a_kind_of(String)
         end
     end
