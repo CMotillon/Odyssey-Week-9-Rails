@@ -3,13 +3,13 @@ namespace :intervention do
 
     desc "Sync Fact Intervention"
     task sync: :environment  do |t, args|
-        dwh = PG::Connection.new(host:'rocket-elevators-postgres.curqalnldvy2.ca-central-1.rds.amazonaws.com', port:'5432', dbname:'rocketelevators_dwh', user:'postgres', password:'croupi012')
+        dwh = PG::Connection.new(ENV['HOST'])
         # puts dwh
         result = ["Success", "Failure", "Incomplete"]
         status = ["Pending", "In progress", "Interrupted", "Resumed", "Complete"]
         
         def new_intervention (employeeID, buildingID, batteryID, columnID, elevatorID, startDate, endDate, result, report, status)
-            dwh = PG::Connection.new(host:'rocket-elevators-postgres.curqalnldvy2.ca-central-1.rds.amazonaws.com', port:'5432', dbname:'rocketelevators_dwh', user:'postgres', password:'croupi012')
+            dwh = PG::Connection.new(ENV['HOST'])
             dwh.exec_params(
                 "INSERT INTO fact_interventions (employee_id, building_id, battery_id, column_id, elevator_id, start_of_intervention, end_of_intervention, result, report, status) 
                 VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)", 
